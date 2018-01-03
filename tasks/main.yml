@@ -1,9 +1,8 @@
 ---
 - name: "service install"
-  apt:
+  package:
       name: chrony
       state: present
-      install_recommends: no
 
 
 - name: "service start"
