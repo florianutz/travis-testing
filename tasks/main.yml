@@ -1,0 +1,13 @@
+---
+- name: "service install"
+  apt:
+      name: chrony
+      state: present
+      install_recommends: no
+
+
+- name: "service start"
+  service:
+      name: "{{ ubuntu1604cis_time_synchronization }}"
+      state: started
+      enabled: yes
