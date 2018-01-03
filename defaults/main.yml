@@ -1,0 +1,5 @@
+---
+
+time_synchronization_service:
+  RedHat: chronyd
+  Debian: chrony

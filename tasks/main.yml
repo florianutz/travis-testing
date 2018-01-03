@@ -8,6 +8,6 @@
 
 - name: "service start"
   service:
-      name: "{{ ubuntu1604cis_time_synchronization }}"
+      name: "{{ time_synchronization_service[ansible_os_family] }}"
       state: started
       enabled: yes
