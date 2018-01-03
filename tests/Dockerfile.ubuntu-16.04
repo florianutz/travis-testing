@@ -2,6 +2,18 @@ FROM ubuntu:16.04
 LABEL maintainer="Florian Utz"
 ENV container docker
 
+
+RUN find /etc/systemd/system \
+         /lib/systemd/system \
+         -path '*.wants/*' \
+         -not -name '*journald*' \
+         -not -name '*systemd-tmpfiles*' \
+         -not -name '*systemd-user-sessions*' \
+         -exec rm \{} \;
+
+RUN systemctl set-default multi-user.target
+
+
 # Install systemd -- See https://hub.docker.com/_/centos/
 #RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
 #RUN yum -y update; yum clean all; \
@@ -49,4 +61,5 @@ RUN echo '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
 VOLUME ["/sys/fs/cgroup", "/var/log/audit"]
 
-CMD ["/sbin/init"]
+#CMD ["/sbin/init"]
+CMD ["/bin/bash", "-c", "exec /sbin/init --log-target=journal 3>&1"]
