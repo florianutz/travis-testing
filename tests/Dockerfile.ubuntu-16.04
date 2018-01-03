@@ -1,5 +1,6 @@
 FROM ubuntu:16.04
 LABEL maintainer="Florian Utz"
+ENV container docker
 
 # Install systemd -- See https://hub.docker.com/_/centos/
 #RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
