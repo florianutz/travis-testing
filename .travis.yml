@@ -23,16 +23,17 @@ before_install:
   - docker info
   # Pull container
   - 'docker pull ${container}'
+  - 'docker pull florianutz/testcontainer:ubuntu'
   # Customize container
-  - 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
+  #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
 
 script:
   - container_id=$(mktemp)
 
   # Run container in detached state
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} ${distro}-${version}:ansible > "${container_id}"'
+  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} florianutz/testcontainer:ubuntu > "${container_id}"'
 
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ./debug.sh'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /etc/ansible/roles/role_under_test/debug.sh'
   # Ansible syntax check.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
 
