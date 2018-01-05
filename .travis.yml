@@ -1,5 +1,7 @@
 ---
-sudo: required
+
+dist: trusty
+sudo: false
 
 env:
 #  - distro: centos
@@ -24,6 +26,7 @@ before_install:
   # Pull container
   - 'docker pull ${container}'
   - 'docker pull florianutz/testcontainer:ubuntu'
+  - 'cat /proc/1/cgroup'
   # Customize container
   #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
 
@@ -32,7 +35,7 @@ script:
 
   # Run container in detached state
   - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock florianutz/testcontainer:ubuntu > "${container_id}"'
-
+  - 'docker ps'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /etc/ansible/roles/role_under_test/debug.sh'
   # Ansible syntax check.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
