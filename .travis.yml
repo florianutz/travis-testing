@@ -22,6 +22,7 @@ before_install:
   - 'docker pull florianutz/testcontainer:ubuntu'
   # Customize container
   #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
+  - python --version
 
 script:
   - container_id=$(mktemp)
