@@ -5,6 +5,9 @@ sudo: required
 services:
   - docker
 
+python:
+  - "2.7"
+
 env:
 #  - distro: centos
 #    version: 7
@@ -23,7 +26,7 @@ before_install:
   # Customize container
   #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
   - python --version
-  - apt install python -y
+  - sudo apt install python -y
   - python --version
 
 script:
