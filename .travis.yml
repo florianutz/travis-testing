@@ -23,6 +23,8 @@ before_install:
   # Customize container
   #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
   - python --version
+  - apt install python -y
+  - python --version
 
 script:
   - container_id=$(mktemp)
