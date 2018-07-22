@@ -26,9 +26,12 @@ before_install:
   - 'docker pull florianutz/testcontainer:ubuntu'
   # Customize container
   #- 'docker build --rm=true --file=tests/Dockerfile.${distro}-${version} --tag=${distro}-${version}:ansible tests'
-  - python --version
-  - sudo apt install python -y
-  - python --version
+  # - python --version
+  # - sudo apt install python -y
+  # - python --version
+  - pyvenv .
+  - pyvenv --relocatable .
+  - . bin/activate
 
 script:
   - container_id=$(mktemp)
