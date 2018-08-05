@@ -29,9 +29,10 @@ before_install:
   # - python --version
   # - sudo apt install python -y
   # - python --version
-  - 'pyvenv .'
-  - 'pyvenv --relocatable .'
-  - '. bin/activate'
+  # - 'pyvenv .'
+  # - 'pyvenv --relocatable .'
+  # - '. bin/activate'
+  - python --version
 
 script:
   - container_id=$(mktemp)
