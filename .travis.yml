@@ -35,6 +35,9 @@ before_install:
   - python --version
 
 script:
+  - which python
+  - which python3
+  - echo "banana"
   - container_id=$(mktemp)
   # Run container in detached state
   - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock florianutz/testcontainer:ubuntu > "${container_id}"'
